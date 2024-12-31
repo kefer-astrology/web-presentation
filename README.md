@@ -13,8 +13,8 @@
 npm run dev
 ```
 
-- celá logika se nachází v `./src/routes/+page.svelte`
+- celá logika se nachází v [`./src/routes/+page.svelte`](./src/routes/+page.svelte)
 
-- překlady jsou ve složce `./static/locales/*.json`
+- překlady jsou ve složce [`./static/locales/`](./static/locales/)
 
 - časem si to tady zautomatizujeme - každá změna vygeneruje finální kod do složky `build`, odkud to pak musíme přenést na FTP (to nemůže být tady, protože jsou to senzitivní data).
