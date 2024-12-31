@@ -1,18 +1,18 @@
 <script>
-	import Header from './Header.svelte';
+	import Navbar from '$lib/Navbar.svelte';
+  	import Footer from '$lib//Footer.svelte';
 	import '../app.css';
+
 </script>
 
 <div class="app">
-	<Header />
+	<Navbar />
 
 	<main>
 		<slot />
 	</main>
 
-	<footer>
-		<p>visit whatever to learn more ...</p>
-	</footer>
+	<Footer />
 </div>
 
 <style>
@@ -21,8 +21,8 @@
 		flex-direction: column;
 		min-height: 100vh;
 	}
-
-	main {
+	
+	/*main {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -31,23 +31,6 @@
 		max-width: 64rem;
 		margin: 0 auto;
 		box-sizing: border-box;
-	}
+	} */
 
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
 </style>
