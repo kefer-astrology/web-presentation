@@ -1,30 +1,50 @@
 <script>
-    // Functionality for language selection
-    import { t, currentLanguage, toggleLanguage } from '$lib/stores/languageStore';
-    
+  // Functionality for language selection
+  import { t, locales, locale} from '$lib/translations';
+  
+  // TO-DO: intelligent handling of a variable
+  locale.forceSet('cs');
+  // Log the current locale and test the translation key
+  console.log('Current locale:', locale.get());
+  // console.log('Translation for "about":', $t('about'));
 </script>
   
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3">
     <div class="container px-4 px-lg-5">
-      <a class="navbar-brand" href="#page-top">Kefer Astrology</a>
+      <a class="navbar-brand" href="#page-top">{$t('all.welcome')}</a>
       <div id="navbarResponsive" class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto my-2 my-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#about">{t('about')}</a>
+            <a class="nav-link" href="#about">{$t('all.about')}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#function">{t('functions')}</a>
+            <a class="nav-link" href="#function">{$t('all.functions')}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#download">{t('download')}</a>
+            <a class="nav-link" href="#astrolab">{$t('all.astrolab')}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#contact">{t('contact')}</a>
+            <a class="nav-link" href="#kefer">{$t('all.kefer')}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#download">{$t('all.download')}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">{$t('all.contact')}</a>
           </li>
           <li>
-            <button type="button" class="lang-switch" on:click={toggleLanguage}>
-                {$currentLanguage === 'cs' ? 'en' : 'cs'}
-              </button>
+            <select 
+              on:change={(event) => {
+                const target = /** @type {HTMLSelectElement} */ (event.target);
+                locale.set(target.value);
+                document.querySelector('html')?.setAttribute('lang', target.value);
+              }}
+              class="lang-switch"
+            >
+              {#each $locales as lc}
+                <option value={lc} selected={lc === $locale}>{$t(`lang.${lc}`)}</option>
+              {/each}
+            </select>
           </li>
         </ul>
       </div>
@@ -32,14 +52,18 @@
 </nav>
   
 <style>
-    /* Navbar */
-    nav {
-    background: white;
-    border-bottom: 1px solid #ddd;
+  /* Navbar */
+  nav {
     position: fixed;
     width: 100%;
+    background: white;
+    border-bottom: 1px solid #ddd;
     z-index: 10;
-    padding: 1rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
   }
 
   nav ul {
