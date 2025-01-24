@@ -1,7 +1,28 @@
 <script>
+	import { base } from '$app/paths';
 	// Functionality for language selection
 	import { t } from '$lib/translations';
+	import Alternations from '$lib/Alternations.svelte';
 	import Donate from '$lib/Donate.svelte';
+    import Carousel from '$lib/Carousel.svelte';
+	// Main function items
+	const aboutItems = [
+		{ heading: $t('all.about1'), description: $t('all.about1Text'), image: '/lom01a.jpg' },
+		{ heading: $t('all.about2'), description: $t('all.about2Text'), image: '/KFR01_mac.jpg' },
+		{ heading: $t('all.about3'), description: $t('all.about3Text'), image: '/KFR01_ntb.jpg' },
+		{ heading: $t('all.about4'), description: $t('all.about4Text'), image: '/KFR02_tab.jpg' },
+	];
+	// Carounsel functionality
+	const carouselItems = [
+		{ description: $t('all.fCarousel1'), image: '/KFR01_mac.jpg' },
+		{ description: $t('all.fCarousel2'), image: '/KFR01_ntb.jpg' },
+		{ description: $t('all.fCarousel3'), image: '/KFR01_tab.jpg' },
+		{ description: $t('all.fCarousel4'), image: '/KFR02_mac.jpg' },
+		{ description: $t('all.fCarousel5'), image: '/KFR02_tab.jpg' },
+		{ description: $t('all.fCarousel6'), image: '/KFR02_ntb.jpg' },
+		{ description: $t('all.fCarousel7'), image: '/lom01a.jpg' },
+		{ description: $t('all.fCarousel8'), image: '/lom02a.jpg' },
+	];
 </script>
 
 <svelte:head>
@@ -13,38 +34,19 @@
 <header id="start" class="masthead">
 	<h1>{$t('all.welcome')}</h1>
 	<p>{$t('all.description')}</p>
-	<a href="#about"><button class="btn">{$t('learnMore')}</button></a>
+	<a href="{base}/#about"><button class="btn">{$t('all.about')}</button></a>
 </header>
   
 <!-- About Section : O Aplikaci -->
 <section id="about" class="bg-primary">
-	<!-- Altering contents -->
-	<h2>{$t('all.about1')}</h2>
-	<p>{$t('all.about1Text')}</p>
-	<div class="divider"></div>
-	<h2>{$t('all.about2')}</h2>
-	<p>{$t('all.about2Text')}</p>
-	<div class="divider"></div>
-	<h2>{$t('all.about3')}</h2>
-	<p>{$t('all.about3Text')}</p>
-	<div class="divider"></div>
-	<h2>{$t('all.about4')}</h2>
-	<p>{$t('all.about4Text')}</p>
-	<div class="divider"></div>
+	<Alternations {aboutItems} />
 </section>
   
 <!-- Functions Section: Funkce Kefer -->
 <section id="function">
 	<h2>{$t('all.functions')}</h2>
 	<div class="divider"></div>
-	<p>{$t('all.fCarousel1')}</p>
-	<p>{$t('all.fCarousel2')}</p>
-	<p>{$t('all.fCarousel3')}</p>
-	<p>{$t('all.fCarousel4')}</p>
-	<p>{$t('all.fCarousel5')}</p>
-	<p>{$t('all.fCarousel6')}</p>
-	<p>{$t('all.fCarousel7')}</p>
-	<p>{$t('all.fCarousel8')}</p>
+	<Carousel {carouselItems} />
 </section>
   
 <!-- Extra Section: Astrolab -->
@@ -98,7 +100,7 @@
 	.masthead {
 		height: 100vh;
 		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)),
-		url('$lib/images/screen_dark_small.jpeg') center/cover no-repeat;
+		url('$lib/images/lom01a.jpg') center/cover no-repeat;
 		color: white;
 		display: flex;
 		flex-direction: column;
