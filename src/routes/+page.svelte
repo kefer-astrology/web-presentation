@@ -6,14 +6,14 @@
 	import Donate from '$lib/Donate.svelte';
     import Carousel from '$lib/Carousel.svelte';
 	// Main function items
-	const aboutItems = [
+	$: aboutItems = [
 		{ heading: $t('all.about1'), description: $t('all.about1Text'), image: '/lom01a.jpg' },
 		{ heading: $t('all.about2'), description: $t('all.about2Text'), image: '/KFR01_mac.jpg' },
 		{ heading: $t('all.about3'), description: $t('all.about3Text'), image: '/KFR01_ntb.jpg' },
 		{ heading: $t('all.about4'), description: $t('all.about4Text'), image: '/KFR02_tab.jpg' },
 	];
 	// Carounsel functionality
-	const carouselItems = [
+	$: carouselItems = [
 		{ description: $t('all.fCarousel1'), image: '/KFR01_mac.jpg' },
 		{ description: $t('all.fCarousel2'), image: '/KFR01_ntb.jpg' },
 		{ description: $t('all.fCarousel3'), image: '/KFR01_tab.jpg' },
@@ -23,6 +23,22 @@
 		{ description: $t('all.fCarousel7'), image: '/lom01a.jpg' },
 		{ description: $t('all.fCarousel8'), image: '/lom02a.jpg' },
 	];
+	$: openSourceText = $t('all.openSourceText').replace(
+		"{github}",
+	 	`<a href="https://github.com" target="_blank" rel="noopener noreferrer">Github</a>`
+	).replace(
+		"{rust}",
+	 	`<a href="https://www.rust-lang.org/" target="_blank" rel="noopener noreferrer">Rust</a>`
+	).replace(
+		"{tauri}",
+	 	`<a href="https://v2.tauri.app/" target="_blank" rel="noopener noreferrer">Tauri</a>`
+	).replace(
+		"{python}",
+	 	`<a href="https://www.python.org/" target="_blank" rel="noopener noreferrer">Python</a>`
+	).replace(
+		"{sveltekit}",
+		`<a href="https://svelte.dev/" target="_blank" rel="noopener noreferrer">Svelte Kit</a>`
+	)
 </script>
 
 <svelte:head>
@@ -67,13 +83,12 @@
 <section id="oss">
 	<h2>{$t('all.openSource')}</h2>
 	<div class="divider"></div>
-	<p>{$t('all.openSourceText')}</p>
+	<p>{@html openSourceText}</p>
 </section>
 
 <!-- Donation Section : Podporte -->
 <section id="donation">
 	<h2>{$t('all.donate')}</h2>
-	<p>{$t('all.donateText')}</p>
 	<Donate /> <!-- the actual embedded page TO-DO select provider -->
 </section>
 

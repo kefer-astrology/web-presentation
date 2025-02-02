@@ -15,6 +15,7 @@ Náhled je dostupný na adrese https://kefer-astrology.github.io/keferastrology.
 - překlady jsou ve složce [`./src/lib/translations/`](./src/lib/translations/)
     - [CZ texty / novinky](./src/lib/translations/cs/)
     - [EN texty / novinky](./src/lib/translations/en/)
+- základní barevná paleta [`./src/app.css`](./src/app.css)
 
 - časem si to tady zautomatizujeme - každá změna vygeneruje finální kod do složky `build`, odkud to pak musíme přenést na FTP (to nemůže být tady, protože jsou to senzitivní data).
 
