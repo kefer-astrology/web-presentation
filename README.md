@@ -1,7 +1,16 @@
 # Keferastrology.com
 
-Zdroj prezentace sestavené na https://keferastrology.com/
-Náhled je dostupný na adrese https://kefer-astrology.github.io/keferastrology.com/
+- Zdroj prezentace sestavené na https://keferastrology.com/
+- V současné chvíli se celé prezentace vystavuje přes webovou služku webonode.cz
+- Aktuální adresa: https://keferastrology-com.webnode.cz/
+
+
+--- 
+
+Náhled této prezentace je k dispozici na adrese https://kefer-astrology.github.io/web-presentation
+
+
+
 
 ## Vývoj
 
