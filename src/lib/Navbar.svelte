@@ -1,353 +1,490 @@
 <script>
   import { base } from '$app/paths';
-  import { onMount } from 'svelte';
-  // Functionality for language selection
-  import { t, locales, locale} from '$lib/translations';
-  
-  let isMobile = false;
-  let showMenu = false;
+  import { t, locales, locale, defaultLocale } from '$lib/translations';
 
-  // Check screen size on mount and on resize
-  const checkScreenSize = () => {
-    isMobile = window.innerWidth <= 1000;
-  };
+  let aboutAppOpen = $state(false);
+  let aboutUsOpen = $state(false);
+  let langOpen = $state(false);
+  let mobileMenuOpen = $state(false);
 
-  // Check screen size on mount and on resize
-  const getLocale = () => {
-    if (locale.get()) {
-      locale.forceSet('cs');
-      console.log('Current locale:', locale.get());
-    } else {
-      locale.forceSet('cs');
-    }
-  };
+  const HOVER_CLOSE_DELAY_MS = 220;
+  /** @type {ReturnType<typeof setTimeout> | null} */
+  let aboutAppCloseId = null;
+  /** @type {ReturnType<typeof setTimeout> | null} */
+  let aboutUsCloseId = null;
+  /** @type {ReturnType<typeof setTimeout> | null} */
+  let langCloseId = null;
 
-  onMount(() => {
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  });
+  function enterAboutApp() {
+    if (aboutAppCloseId) { clearTimeout(aboutAppCloseId); aboutAppCloseId = null; }
+    aboutAppOpen = true;
+  }
+  function leaveAboutApp() {
+    aboutAppCloseId = setTimeout(() => { aboutAppOpen = false; aboutAppCloseId = null; }, HOVER_CLOSE_DELAY_MS);
+  }
+  function enterAboutUs() {
+    if (aboutUsCloseId) { clearTimeout(aboutUsCloseId); aboutUsCloseId = null; }
+    aboutUsOpen = true;
+  }
+  function leaveAboutUs() {
+    aboutUsCloseId = setTimeout(() => { aboutUsOpen = false; aboutUsCloseId = null; }, HOVER_CLOSE_DELAY_MS);
+  }
+  function enterLang() {
+    if (langCloseId) { clearTimeout(langCloseId); langCloseId = null; }
+    langOpen = true;
+  }
+  function leaveLang() {
+    langCloseId = setTimeout(() => { langOpen = false; langCloseId = null; }, HOVER_CLOSE_DELAY_MS);
+  }
 
-  /**
-   * Catches keyboard strokes.
-   * @param {KeyboardEvent} event - The keyboard event triggered by user input.
-   */
-  function handleKeydown(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      toggleMenu();
+  /** @param {Event} e */
+  function scrollIntoView(e) {
+    const href = /** @type {HTMLAnchorElement} */ (e.currentTarget)?.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    e.preventDefault();
+    mobileMenuOpen = false;
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function closeMobileMenu() {
+    mobileMenuOpen = false;
+  }
+
+  /** @param {KeyboardEvent} e */
+  function handleMobileMenuKeydown(e) {
+    if (e.key === 'Escape') {
+      mobileMenuOpen = false;
+    } else if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) {
+      e.preventDefault();
+      mobileMenuOpen = false;
     }
   }
 
-  const toggleMenu = () => {
-    showMenu = !showMenu;
-  };
-
-  /**
-   * Switches language.
-   * TO-DO: check forceSet needed
-   * @param {string} lang - language code (en, cs)
-   */
-  const toggleLanguage = (lang) => {
+  /** @param {string} lang */
+  function toggleLanguage(lang) {
     locale.set(lang);
     locale.forceSet(lang);
-  };
-
-  /**
-   * Catches keyboard strokes.
-   * @param {KeyboardEvent} event - The keyboard event triggered by user input.
-   * @param {string} lang - The keyboard event triggered by user input.
-   */
-  function handleKeyPress(event, lang) {
-    if (event.key === "Enter" || event.key === " ") {
-      toggleLanguage(lang);
-    }
+    langOpen = false;
   }
 
-  getLocale();
+  /** @param {KeyboardEvent} event @param {string} lang */
+  function handleKeyPress(event, lang) {
+    if (event.key === 'Enter' || event.key === ' ') toggleLanguage(lang);
+  }
 </script>
-  
+
 <nav class="navbar" id="mainNav">
-  <div class="logo">
-    <a class="navbar-brand" href="{base}/#start">{$t('all.welcome')}</a>
-  </div>
-  {#if isMobile}
-    <div 
-      class="burger-menu" 
-      on:click={toggleMenu} 
-      on:keydown={handleKeydown} 
-      tabindex="0" 
-      role="button" 
-      aria-label="PANIC!"
+  <a class="logo" href="{base}/#start" aria-label="Kefer Astrology – domů">
+    <img src="{base}/Kefer_logo.webp" alt="Kefer Astrology" class="logo-img" width="180" height="56" />
+  </a>
+
+  <button
+    type="button"
+    class="burger-btn"
+    aria-label="Menu"
+    aria-expanded={mobileMenuOpen}
+    onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
+  >
+    <span class="burger-bar"></span>
+    <span class="burger-bar"></span>
+    <span class="burger-bar"></span>
+  </button>
+
+  <div class="nav-right">
+    <div class="nav-group">
+      <div
+        class="nav-dropdown"
+        role="group"
+        aria-label="O aplikaci"
+        onmouseenter={enterAboutApp}
+        onmouseleave={leaveAboutApp}
+      >
+        <a class="nav-link" href="{base}/#about" onclick={scrollIntoView}>
+          {$t('all.navAbout')}
+        </a>
+        <span class="nav-arrow" aria-hidden="true">▾</span>
+        {#if aboutAppOpen}
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{base}/#oss" onclick={scrollIntoView} role="menuitem">{$t('all.openSource')}</a></li>
+            <li><a href="{base}/#download" onclick={scrollIntoView} role="menuitem">{$t('all.download')}</a></li>
+          </ul>
+        {/if}
+      </div>
+      <a class="nav-link" href="{base}/news">{$t('all.navBlog')}</a>
+      <div
+        class="nav-dropdown"
+        role="group"
+        aria-label="O nás"
+        onmouseenter={enterAboutUs}
+        onmouseleave={leaveAboutUs}
+      >
+        <a class="nav-link" href="{base}/o-nas">{$t('all.navAboutUs')}</a>
+        <span class="nav-arrow" aria-hidden="true">▾</span>
+        {#if aboutUsOpen}
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{base}/#donation" onclick={scrollIntoView} role="menuitem">{$t('all.donate')}</a></li>
+            <li><a href="{base}/#form" onclick={scrollIntoView} role="menuitem">{$t('all.contactUs')}</a></li>
+          </ul>
+        {/if}
+      </div>
+    </div>
+
+    <div
+      class="lang-dropdown"
+      role="group"
+      aria-label="Jazyk / Language"
+      onmouseenter={enterLang}
+      onmouseleave={leaveLang}
     >
-      <div></div>
-      <div></div>
-      <div></div>
+      <button
+        type="button"
+        class="lang-toggle"
+        aria-haspopup="true"
+        aria-expanded={langOpen}
+        onclick={() => (langOpen = !langOpen)}
+      >
+        <img src="{base}/{$locale ?? defaultLocale}.svg" alt="" width="20" height="20" />
+        <span>{$t(`lang.${$locale ?? defaultLocale}`)}</span>
+        <span class="nav-arrow" aria-hidden="true">▾</span>
+      </button>
+      {#if langOpen}
+        <ul class="dropdown-menu lang-menu" role="menu">
+          {#each $locales as lang}
+            <li role="none">
+              <button
+                type="button"
+                class="dropdown-item"
+                role="menuitem"
+                onclick={() => toggleLanguage(lang)}
+                onkeydown={(e) => handleKeyPress(e, lang)}
+              >
+                <img src="{base}/{lang}.svg" alt="" width="20" height="20" />
+                {$t(`lang.${lang}`)}
+              </button>
+            </li>
+          {/each}
+        </ul>
+      {/if}
     </div>
-    <div class="mobile-menu" class:show={showMenu}>
-      <a class="nav-link" href="{base}/#about" on:click={() => (showMenu = false)}>{$t('all.about')}</a>
-      <a class="nav-link" href="{base}/#oss" on:click={() => (showMenu = false)}>{$t('all.openSource')}</a>
-      <a class="nav-link" href="{base}/#donation" on:click={() => (showMenu = false)}>{$t('all.donate')}</a>
-      <a class="nav-link" href="{base}/#download" on:click={() => (showMenu = false)}>{$t('all.download')}</a>
-      <a class="nav-link" href="{base}/#contact" on:click={() => (showMenu = false)}>{$t('all.contact')}</a>
-      <a class="nav-link" href="{base}/#form" on:click={() => (showMenu = false)}>{$t('all.contactUs')}</a>
-      <a class="nav-link" href="{base}/news" on:click={() => (showMenu = false)}>{$t('news.heading')}</a>
-    </div>
-  {:else}
-    <div class="desktop-menu">
-      <a class="nav-link" href="{base}/#about">{$t('all.about')}</a>
-      <a class="nav-link" href="{base}/#oss">{$t('all.openSource')}</a>
-      <a class="nav-link" href="{base}/#donation">{$t('all.donate')}</a>
-      <a class="nav-link" href="{base}/#download">{$t('all.download')}</a>
-      <a class="nav-link" href="{base}/#contact">{$t('all.contact')}</a> 
-      <a class="nav-link" href="{base}/#form">{$t('all.contactUs')}</a> 
-      <a class="nav-link" href="{base}/news">{$t('news.heading')}</a> 
+  </div>
+
+  {#if mobileMenuOpen}
+    <div
+      class="mobile-menu"
+      role="dialog"
+      aria-label="Navigace"
+      tabindex="-1"
+      onclick={(e) => e.target === e.currentTarget && (mobileMenuOpen = false)}
+      onkeydown={handleMobileMenuKeydown}
+    >
+      <div class="mobile-menu-inner">
+        <a class="mobile-link" href="{base}/#about" onclick={scrollIntoView}>{$t('all.navAbout')}</a>
+        <a class="mobile-link" href="{base}/#oss" onclick={scrollIntoView}>{$t('all.openSource')}</a>
+        <a class="mobile-link" href="{base}/#download" onclick={scrollIntoView}>{$t('all.download')}</a>
+        <a class="mobile-link" href="{base}/news" onclick={closeMobileMenu}>{$t('all.navBlog')}</a>
+        <a class="mobile-link" href="{base}/o-nas" onclick={closeMobileMenu}>{$t('all.navAboutUs')}</a>
+        <a class="mobile-link" href="{base}/#donation" onclick={scrollIntoView}>{$t('all.donate')}</a>
+        <a class="mobile-link" href="{base}/#form" onclick={scrollIntoView}>{$t('all.contactUs')}</a>
+        <div class="mobile-lang">
+          {#each $locales as lang}
+            <button
+              type="button"
+              class="mobile-lang-btn"
+              onclick={() => { toggleLanguage(lang); closeMobileMenu(); }}
+            >
+              <img src="{base}/{lang}.svg" alt="" width="20" height="20" />
+              {$t(`lang.${lang}`)}
+            </button>
+          {/each}
+        </div>
+      </div>
     </div>
   {/if}
-  <div class="dropdown"> <!-- https://github.com/hampusborgos/country-flags -->
-    <div class="dropdown-toggle">
-      {#each $locales as lang}
-        {#if lang === $locale}
-          <img src="{base}{lang}.svg" alt={lang} />
-          {lang}
-        {/if}
-      {/each}
-    </div>
-    <ul class="dropdown-menu">
-      {#each $locales as lang}
-      <li>
-        <button class="dropdown-item" on:click={() => toggleLanguage(lang)} on:keydown={(event) => handleKeyPress(event, lang)}>
-          {#if lang} <!-- Prevents errors if lang is undefined -->
-            <img src="{base ? `${base}${lang}.svg` : `${base}${lang}.svg`}" alt={$t(`lang.${lang}`)} />
-          {/if}
-          {$t(`lang.${lang}`)}
-        </button>
-      </li>
-      {/each}
-    </ul>
-  </div>  
 </nav>
-  
-<style>
-  nav {
-    --bs-nav-link-padding-x: 1rem;
-    --bs-nav-link-padding-y: 0.5rem;
-    --bs-nav-link-font-weight: ;
-    --bs-nav-link-color: var(--bs-link-color);
-    --bs-nav-link-hover-color: var(--bs-link-hover-color);
-    --bs-nav-link-disabled-color: #6c757d;
-    align-items: center;
-    background: white;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    list-style: none;
-    padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
-    position: fixed;
-    width: 100%;
-    z-index: 10;
-  }
 
-  /* Navbar */
+<style>
   .navbar {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     width: 100%;
-    animation: gradientAnimation 5s ease-in-out infinite alternate;
-    background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-    background-size: 200% 200%;
-    color: white;
+    max-width: 100vw;
+    box-sizing: border-box;
+    background: #fff;
+    color: #212529;
     display: flex;
-    justify-content: space-around;
-    padding: 1rem;
-    z-index: 1000;
-  }
-  /* Keyframes for the transition */
-  @keyframes gradientAnimation {
-      0% {
-          background-position: 0% 50%;
-      }
-      50% {
-          background-position: 100% 50%;
-      }
-      100% {
-          background-position: 0% 50%;
-      }
-  }
-  .desktop-menu {
-    display: flex;
-    gap: 1.5rem;
-  }
-  .navbar > .desktop-menu {
-    display: flex;
-    flex-wrap: inherit;
-    align-items: center;
     justify-content: space-between;
-  }
-  .desktop-menu a {
-    text-decoration: none;
-    color: #000;
-    font-size: 1.2rem;
-  }
-
-  .desktop-menu a:hover {
-    color: #007bff;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    overflow-x: hidden;
   }
 
-  .mobile-menu {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: #222;
-    flex-direction: column;
-    display: none;
-    gap: 1rem;
-    padding: 1rem;
+  .logo {
+    position: relative;
+    z-index: 1001;
+    flex-shrink: 1;
+    min-width: 0;
+    display: block;
+    line-height: 0;
   }
 
-  .mobile-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
+  .logo-img {
+    display: block;
+    height: 2.25rem;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
   }
 
-  .burger-menu {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
+  .logo:hover .logo-img,
+  .logo:focus .logo-img {
+    opacity: 0.85;
   }
 
-  .burger-menu div {
-    width: 30px;
-    height: 3px;
-    background: white;
-    margin: 5px 0;
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex-wrap: wrap;
   }
+
+  .nav-group {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    flex-wrap: wrap;
+  }
+
   .nav-link {
     display: block;
-    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-    font-size: var(--bs-nav-link-font-size);
-    font-weight: var(--bs-nav-link-font-weight);
-    color: var(--bs-nav-link-color);
+    padding: 0.45rem 0.6rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-weight: 600;
     text-decoration: none;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    border-radius: 4px;
   }
-  @media (max-width: 1000px) {
-    .burger-menu {
-      display: flex;
-    }
-    .mobile-menu.show {
-      display: flex;
-    }
-  }
-  .nav-link:hover, .nav-link:focus {
-    color: var(--bs-nav-link-hover-color);
-  }
-  
-  .navbar-brand {
-    padding-top: var(--bs-navbar-brand-padding-y);
-    padding-bottom: var(--bs-navbar-brand-padding-y);
-    margin-right: var(--bs-navbar-brand-margin-end);
-    font-size: var(--bs-navbar-brand-font-size);
-    color: var(--bs-navbar-brand-color);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .navbar-brand:hover, .navbar-brand:focus {
-    color: var(--bs-navbar-brand-hover-color);
-  }
-  #mainNav {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    background-color: #fff;
-    transition: background-color 0.2s ease;
-  }
-  #mainNav .navbar-brand {
-    font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: 700;
+
+  .nav-link:hover {
     color: #212529;
   }
-  #mainNav .navbar-nav .nav-item .nav-link {
-    color: #6c757d;
-    font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 0.75rem 0;
-  }
-  #mainNav .navbar-nav .nav-item .nav-link:hover, #mainNav .navbar-nav .nav-item .nav-link:active {
-    color: #f4623a;
-  }
-  @media (min-width: 992px) {
-    #mainNav {
-      box-shadow: none;
-      background-color: transparent;
-    }
-    #mainNav .navbar-brand {
-      color: rgba(255, 255, 255, 0.7);
-    }
-    #mainNav .navbar-brand:hover {
-      color: #fff;
-    }
-    #mainNav .navbar-nav .nav-item .nav-link {
-      color: rgba(255, 255, 255, 0.7);
-      padding: 0 1rem;
-    }
-    #mainNav .navbar-nav .nav-item .nav-link:hover {
-      color: #fff;
-    }
-    #mainNav .navbar-nav .nav-item:last-child .nav-link {
-      padding-right: 0;
-    }
-  }
 
-  .dropdown {
-    background: none;    
+  .nav-dropdown {
     position: relative;
-    display: inline-block;
-  }
-
-  .dropdown-toggle {
     display: flex;
     align-items: center;
-    background: none;    
-    gap: 8px;
-    padding: 5px 10px;
-    cursor: pointer;
+  }
+
+  .nav-dropdown > .nav-link {
+    padding-right: 0.2rem;
+  }
+
+  .nav-arrow {
+    font-size: 0.6em;
+    color: #6c757d;
+    pointer-events: none;
   }
 
   .dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
-    background: none;
+    min-width: 160px;
+    margin: 0.25rem 0 0 0;
+    padding: 0.35rem 0;
     list-style: none;
-    padding: 5px;
-    margin: 0;
-    display: none;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    z-index: 100;
   }
 
-  .dropdown:hover .dropdown-menu {
+  .dropdown-menu a {
     display: block;
+    padding: 0.45rem 1rem;
+    color: #212529;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .dropdown-menu a:hover {
+    background: #f8f9fa;
+    color: #0d6efd;
+  }
+
+  .lang-dropdown {
+    position: relative;
+    margin-left: 0.25rem;
+    padding-left: 0.5rem;
+    border-left: 1px solid #dee2e6;
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.35rem 0.5rem;
+    background: none;
+    border: none;
+    color: #6c757d;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .lang-toggle:hover {
+    color: #212529;
+  }
+
+  .lang-menu {
+    right: 0;
+    left: auto;
   }
 
   .dropdown-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 5px 5% 10px 0;
+    width: 100%;
+    padding: 0.45rem 1rem;
+    background: none;
+    border: none;
+    color: #212529;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: left;
     cursor: pointer;
-    flex-direction: row-reverse; /* Flips the order: text → flag */
-    justify-content: flex-start; /* Align items to the left */
   }
 
   .dropdown-item:hover {
-    background: #f0f0f0;
+    background: #f8f9fa;
   }
 
-  img {
-    width: 20px;
-    height: 20px;
+  .burger-btn {
+    display: none;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1001;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0.5rem;
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #212529;
   }
 
+  .burger-btn:hover {
+    background: #f1f3f5;
+  }
+
+  .burger-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    padding-top: 3.5rem;
+    overflow: auto;
+  }
+
+  .mobile-menu-inner {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .mobile-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #212529;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+  }
+
+  .mobile-link:hover {
+    background: #f8f9fa;
+    color: #0d6efd;
+  }
+
+  .mobile-lang {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .mobile-lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 0.75rem;
+    background: #f1f3f5;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .mobile-lang-btn:hover {
+    background: #e9ecef;
+  }
+
+  @media (max-width: 600px) {
+    .burger-btn {
+      display: flex;
+    }
+
+    .nav-right {
+      display: none;
+    }
+  }
+
+  @media (min-width: 601px) {
+    .mobile-menu {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .navbar {
+      padding: 0.4rem 0.75rem;
+    }
+    .logo-img {
+      height: 1.9rem;
+      max-width: 130px;
+    }
+    .mobile-link {
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+    }
+  }
 </style>

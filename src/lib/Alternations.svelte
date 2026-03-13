@@ -1,10 +1,9 @@
 <script>
   import { base } from "$app/paths";
-  /** 
-   * @type {{ heading: string, description: string, image: string }[]} 
-   */
-  export let aboutItems = [];
-  </script>
+
+  /** @type {{ aboutItems?: { heading: string; description: string; image: string }[] }} */
+  let { aboutItems = [] } = $props();
+</script>
   
   <div class="container">
     {#each aboutItems as item, index}

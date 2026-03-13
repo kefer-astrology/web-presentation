@@ -1,6 +1,12 @@
+<script>
+  import { t } from '$lib/translations';
+</script>
+
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5">
-        <small class="text-center text-muted">Copyright &copy; 2025 - Kefer Astrology</small>
+        <small class="text-center text-muted">{$t('all.footerCopyright')}</small>
+        <span class="footer-sep"> · </span>
+        <a href="#cookiebar" class="footer-link">{$t('all.footerCookies')}</a>
     </div>
 </footer>
 
@@ -11,6 +17,19 @@
 		justify-content: center;
 		align-items: center;
 		padding: 12px;
+	}
+
+	.footer-sep {
+		opacity: 0.7;
+	}
+
+	.footer-link {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.footer-link:hover {
+		text-decoration: underline;
 	}
 
 	@media (min-width: 480px) {

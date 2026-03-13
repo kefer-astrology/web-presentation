@@ -1,10 +1,9 @@
 <script>
   import { base } from "$app/paths";
-  /** 
-   * @type {{ description: string, image: string }[]} 
-   */
-  export let carouselItems = [];
-  let currentIndex = 0;
+
+  /** @type {{ carouselItems?: { description: string; image: string }[] }} */
+  let { carouselItems = [] } = $props();
+  let currentIndex = $state(0);
 
   function nextSlide() {
     currentIndex = (currentIndex + 1) % carouselItems.length;
@@ -18,18 +17,18 @@
     const positions = ['top: 10%', 'top: 50%', 'top: 80%', 'left: 10%', 'left: 50%', 'left: 80%'];
     return `${positions[Math.floor(Math.random() * positions.length)]};`;
   }
-  </script>
-  
-  <div class="carousel">
-    {#if carouselItems.length > 0}
-      <img src="{base}{carouselItems[currentIndex].image}" alt="Carousel item" />
-      <div class="carousel-text" style={getRandomPosition()}>{carouselItems[currentIndex].description}</div>
-    {/if}
-    <div class="carousel-buttons">
-      <button on:click={prevSlide}>&#10094;</button>
-      <button on:click={nextSlide}>&#10095;</button>
-    </div>
+</script>
+
+<div class="carousel">
+  {#if carouselItems.length > 0}
+    <img src="{base}{carouselItems[currentIndex].image}" alt="Carousel item" />
+    <div class="carousel-text" style={getRandomPosition()}>{carouselItems[currentIndex].description}</div>
+  {/if}
+  <div class="carousel-buttons">
+    <button onclick={prevSlide} type="button">&#10094;</button>
+    <button onclick={nextSlide} type="button">&#10095;</button>
   </div>
+</div>
   
   <style>
     /* Overall container for centering */

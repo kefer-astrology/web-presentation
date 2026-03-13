@@ -6,9 +6,10 @@ import lang from './lang';
 
 /** @type {import('sveltekit-i18n').Config} */
 const config = {
-  fallbackLocale: 'cs', // Fallback if the key or locale is missing
+  initLocale: 'cs',
+  fallbackLocale: 'cs',
   log: {
-    level: dev ? 'warn' : 'error',
+    level: 'error',
   },
   translations: {
     en: {
