@@ -100,10 +100,9 @@
         onmouseenter={enterAboutApp}
         onmouseleave={leaveAboutApp}
       >
-        <a class="nav-link" href="{base}/#about" onclick={scrollIntoView}>
+        <a class="nav-link" href="{base}/#supported-os" onclick={scrollIntoView}>
           {$t('all.navAbout')}
         </a>
-        <span class="nav-arrow" aria-hidden="true">▾</span>
         {#if aboutAppOpen}
           <ul class="dropdown-menu" role="menu">
             <li><a href="{base}/#oss" onclick={scrollIntoView} role="menuitem">{$t('all.openSource')}</a></li>
@@ -120,7 +119,6 @@
         onmouseleave={leaveAboutUs}
       >
         <a class="nav-link" href="{base}/o-nas">{$t('all.navAboutUs')}</a>
-        <span class="nav-arrow" aria-hidden="true">▾</span>
         {#if aboutUsOpen}
           <ul class="dropdown-menu" role="menu">
             <li><a href="{base}/#donation" onclick={scrollIntoView} role="menuitem">{$t('all.donate')}</a></li>
@@ -146,7 +144,6 @@
       >
         <img src="{base}/{$locale ?? defaultLocale}.svg" alt="" width="20" height="20" />
         <span>{$t(`lang.${$locale ?? defaultLocale}`)}</span>
-        <span class="nav-arrow" aria-hidden="true">▾</span>
       </button>
       {#if langOpen}
         <ul class="dropdown-menu lang-menu" role="menu">
@@ -212,22 +209,24 @@
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
+    min-height: 3rem;
     background: #fff;
     color: #212529;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     padding: 0.5rem 1rem;
     z-index: 1000;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0.5rem;
-    overflow-x: hidden;
+    overflow: visible;
   }
 
   .logo {
     position: relative;
     z-index: 1001;
+    align-self: center;
     flex-shrink: 1;
     min-width: 0;
     display: block;
@@ -252,18 +251,20 @@
     align-items: center;
     gap: 0.5rem;
     margin-left: auto;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
   }
 
   .nav-group {
     display: flex;
     align-items: center;
     gap: 0.15rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .nav-link {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 0.45rem 0.6rem;
     color: #6c757d;
     font-size: 0.9rem;
@@ -280,16 +281,16 @@
     position: relative;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+    min-height: 3rem;
   }
 
   .nav-dropdown > .nav-link {
-    padding-right: 0.2rem;
-  }
-
-  .nav-arrow {
-    font-size: 0.6em;
-    color: #6c757d;
-    pointer-events: none;
+    padding: 0.5rem 0.25rem 0.5rem 0.6rem;
+    display: flex;
+    align-items: center;
+    min-height: 3rem;
+    box-sizing: border-box;
   }
 
   .dropdown-menu {
@@ -297,13 +298,14 @@
     top: 100%;
     left: 0;
     min-width: 160px;
-    margin: 0.25rem 0 0 0;
+    margin: 0;
     padding: 0.35rem 0;
     list-style: none;
     background: #fff;
-    border-radius: 6px;
+    border-radius: 0 0 6px 6px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     z-index: 100;
+    pointer-events: auto;
   }
 
   .dropdown-menu a {
@@ -325,6 +327,9 @@
     margin-left: 0.25rem;
     padding-left: 0.5rem;
     border-left: 1px solid #dee2e6;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
   }
 
   .lang-toggle {
@@ -372,6 +377,7 @@
   .burger-btn {
     display: none;
     flex-shrink: 0;
+    align-self: center;
     position: relative;
     z-index: 1001;
     flex-direction: column;

@@ -2,14 +2,8 @@
 :root {
 	--font-body: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
-	--color-bg-0: rgb(202, 216, 228);
-	--color-bg-1: hsl(209, 36%, 86%);
-	--color-bg-2: hsl(224, 44%, 95%);
 	--color-theme-1: #ff3e00;
-	--color-theme-2: #4075a6;
 	--color-text: rgba(0, 0, 0, 0.7);
-	--column-width: 42rem;
-	--column-margin-top: 4rem;
 	font-family: var(--font-body);
 	color: var(--color-text);
 }
@@ -21,12 +15,12 @@ body {
 	font-size: 16px;
 	line-height: 1.5;
 	color: #212529;
-	/* Wave in the middle as background layer (white curve), then gradient */
+	/* Wave as divider: gradient above, white only underneath */
 	background-image:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 240' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 240 L0 90 Q400 200 600 90 T1200 120 L1200 240 Z'/%3E%3C/svg%3E"),
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 800 L0 280 Q400 380 600 280 T1200 320 L1200 800 Z'/%3E%3C/svg%3E"),
 		linear-gradient(90deg, #0a4bac 0%, #c96be6 100%);
-	background-position: center 40%, 0 0;
-	background-size: 100% 55%, 100% 100%;
+	background-position: 0 0, 0 0;
+	background-size: 100% 100%, 100% 100%;
 	background-repeat: no-repeat, no-repeat;
 	background-attachment: fixed, fixed;
 }
@@ -35,23 +29,30 @@ main {
 	font-family: var(--font-body);
 }
 
-/* Gradient is the app background; sections are white widgets with shadow */
+/* Section base: full width, 10rem white space on top (padding so it's section background) */
 main section {
-	background: #fff;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-	border-radius: 8px;
-	margin: 1.5rem 1rem;
-	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* Two sections with no card: gradient shows through (Software ve vývoji, Naše vize) */
-main section.bg-transparent {
-	background: transparent;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	padding-top: 10rem;
 	box-shadow: none;
 	border-radius: 0;
-	margin: 1.5rem 1rem;
+}
+
+/* White card section: no shadow, no rounded corners */
+main section.section-card {
+	background: #fff;
+	box-shadow: none;
+	border-radius: 0;
+}
+
+main section.section-card .divider {
+	background: #212529;
+}
+
+/* Transparent section: gradient shows through (e.g. Vision, Download) */
+main section.bg-transparent {
+	background: transparent;
 	color: #fff;
 }
 
@@ -61,10 +62,6 @@ main section.bg-transparent .divider {
 
 main section.bg-transparent h2 {
 	color: #fff;
-}
-
-main section:not(.bg-transparent) .divider {
-	background: #212529;
 }
 
   
@@ -113,15 +110,6 @@ pre {
 	padding: 0.5em;
 	overflow-x: auto;
 	color: var(--color-text);
-}
-
-.text-column {
-	display: flex;
-	max-width: 48rem;
-	flex: 0.6;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 auto;
 }
 
 input,
