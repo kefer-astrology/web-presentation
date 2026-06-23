@@ -1,152 +1,220 @@
 /* Fonts: Raleway from gstatic (matches source logo); source body/menu use Metropolis, not on GF → Raleway site-wide */
 :root {
-	--font-body: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
-	--color-theme-1: #ff3e00;
-	--color-text: rgba(0, 0, 0, 0.7);
-	font-family: var(--font-body);
-	color: var(--color-text);
+    --font-body:
+        "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono:
+        ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, monospace;
+    --color-theme-1: #ff3e00;
+    --color-text: rgba(0, 0, 0, 0.7);
+    --anchor-offset: 5.5rem;
+    font-family: var(--font-body);
+    color: var(--color-text);
+}
+
+html {
+    scroll-padding-top: var(--anchor-offset);
 }
 
 body {
-	min-height: 100vh;
-	margin: 0;
-	font-family: var(--font-body);
-	font-size: 16px;
-	line-height: 1.5;
-	color: #212529;
-	/* Wave as divider: gradient above, white only underneath */
-	background-image:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 800 L0 280 Q400 380 600 280 T1200 320 L1200 800 Z'/%3E%3C/svg%3E"),
-		linear-gradient(90deg, #0a4bac 0%, #c96be6 100%);
-	background-position: 0 0, 0 0;
-	background-size: 100% 100%, 100% 100%;
-	background-repeat: no-repeat, no-repeat;
-	background-attachment: fixed, fixed;
+    min-height: 100vh;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    color: #212529;
+    /* Wave as divider: gradient above, white only underneath */
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 800 L0 280 Q400 380 600 280 T1200 320 L1200 800 Z'/%3E%3C/svg%3E"),
+        linear-gradient(90deg, #0a4bac 0%, #c96be6 100%);
+    background-position:
+        0 0,
+        0 0;
+    background-size:
+        100% 100%,
+        100% 100%;
+    background-repeat: no-repeat, no-repeat;
+    background-attachment: fixed, fixed;
+}
+
+header[id],
+section[id],
+main [id] {
+    scroll-margin-top: var(--anchor-offset);
+}
+
+.page-shell {
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 4rem;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.76);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 1.25rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+}
+
+.section-panel {
+    width: min(100%, 68rem);
+    box-sizing: border-box;
+    margin: 0 auto 2rem;
+    padding: 2rem;
+}
+
+.section-panel > h1,
+.section-panel > h2,
+.section-panel > h3,
+.section-panel > p,
+.section-panel .section-copy {
+    text-align: left;
+}
+
+.page-title {
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1.15;
+    font-weight: 600;
+    text-align: left;
+}
+
+.section-title {
+    font-size: clamp(1.55rem, 3vw, 2rem);
+    line-height: 1.2;
+    font-weight: 600;
+    text-align: left;
+}
+
+.divider {
+    width: 100px;
+    height: 3px;
+    margin: 1rem 0 1.5rem;
+    border-radius: 999px;
+}
+
+.subsection-panel {
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 1rem;
 }
 
 main {
-	font-family: var(--font-body);
+    font-family: var(--font-body);
 }
 
-/* Section base: full width, 10rem white space on top (padding so it's section background) */
-main section {
-	width: 100%;
-	box-sizing: border-box;
-	margin: 0;
-	padding-top: 10rem;
-	box-shadow: none;
-	border-radius: 0;
+main section.section-card .divider,
+section.section-card .divider,
+.glass-panel .divider {
+    background: #212529;
 }
 
-/* White card section: no shadow, no rounded corners */
-main section.section-card {
-	background: #fff;
-	box-shadow: none;
-	border-radius: 0;
+main section.bg-transparent .divider,
+section.bg-transparent .divider {
+    background: rgba(255, 255, 255, 0.8);
 }
 
-main section.section-card .divider {
-	background: #212529;
-}
-
-/* Transparent section: gradient shows through (e.g. Vision, Download) */
-main section.bg-transparent {
-	background: transparent;
-	color: #fff;
-}
-
-main section.bg-transparent .divider {
-	background: rgba(255, 255, 255, 0.8);
-}
-
-main section.bg-transparent h2 {
-	color: #fff;
-}
-
-  
-h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	font-family: var(--font-body);
-	font-weight: 600;
+main section.bg-transparent h2,
+section.bg-transparent h2 {
+    color: #fff;
 }
 
 h1,
 h2,
-p {
-	font-weight: 400;
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 600;
 }
 
 p {
-	line-height: 1.5;
+    font-weight: 400;
+}
+
+p {
+    line-height: 1.5;
 }
 
 a {
-	color: var(--color-theme-1);
-	color: inherit;
-	text-decoration: none;
+    color: var(--color-theme-1);
+    color: inherit;
+    text-decoration: none;
 }
 
 a:hover {
-	text-decoration: underline;
-	color: #007bff;
+    text-decoration: underline;
+    color: #007bff;
 }
 
 h1 {
-	font-size: 2rem;
-	text-align: center;
+    font-size: 2rem;
+    text-align: center;
 }
 
 h2 {
-	font-size: 1rem;
+    font-size: 1rem;
 }
 
 pre {
-	font-size: 16px;
-	font-family: var(--font-mono);
-	background-color: rgba(255, 255, 255, 0.45);
-	border-radius: 3px;
-	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
-	padding: 0.5em;
-	overflow-x: auto;
-	color: var(--color-text);
+    font-size: 16px;
+    font-family: var(--font-mono);
+    background-color: rgba(255, 255, 255, 0.45);
+    border-radius: 3px;
+    box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
+    padding: 0.5em;
+    overflow-x: auto;
+    color: var(--color-text);
 }
 
 input,
 button {
-	font-size: inherit;
-	font-family: inherit;
+    font-size: inherit;
+    font-family: inherit;
 }
 
 button:focus:not(:focus-visible) {
-	outline: none;
+    outline: none;
 }
 
 @media (min-width: 720px) {
-	h1 {
-		font-size: 2.4rem;
-	}
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    .page-shell {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .section-panel {
+        padding: 2.5rem;
+    }
 }
 
 .visually-hidden {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: auto;
-	margin: 0;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-	white-space: nowrap;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: auto;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
 }
 
 /* Section entrance animation (matches copy “on scroll” feel) */
 section.animate-on-scroll {
-	opacity: 1;
-	transform: translateY(1.25rem);
-	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    opacity: 1;
+    transform: translateY(1.25rem);
+    transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out;
 }
 
 section.animate-on-scroll.visible {
-	transform: translateY(0);
+    transform: translateY(0);
 }

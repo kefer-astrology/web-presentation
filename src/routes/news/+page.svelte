@@ -1,78 +1,71 @@
 <script>
-	import { base } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
 	import { blogPosts } from '$lib/data/blogPosts.js';
+	import { t } from '$lib/translations';
 </script>
 
 <svelte:head>
-	<title>Blog :: keferastrology.com</title>
-	<meta name="description" content="Aktuality – Blog Kefer Astrology" />
+	<title>{$t('all.navBlog')} :: keferastrology.com</title>
+	<meta name="description" content={$t('all.newsMetaDescription')} />
 </svelte:head>
 
-<main class="news-page">
-	<h1 class="news-title">Aktuality</h1>
+<main class="page-shell news-page">
+	<section class="section-panel glass-panel">
+		<h1 class="page-title news-title">{$t('all.newsTitle')}</h1>
+		<div class="divider"></div>
 
-	<div class="blog-list">
-		{#each blogPosts as post}
-			<article class="blog-item">
-				<div class="blog-item-wrapper">
-					<div class="blog-item-media">
-						<a href="{base}/news/{post.slug}">
-							<img
-								src="{base}{post.image}"
-								alt=""
-								width="1920"
-								height="1080"
-								loading="lazy"
-							/>
-						</a>
-					</div>
-					<div class="blog-item-content">
-						<div class="blog-item-head">
-							<h2>
-								<a href="{base}/news/{post.slug}">{post.title}</a>
-							</h2>
-							<time class="blog-item-date" datetime="{post.date}">{post.date}</time>
+		<div class="blog-list">
+			{#each blogPosts as post}
+				<article class="blog-item subsection-panel">
+					<div class="blog-item-wrapper">
+						<div class="blog-item-media">
+							<a href={resolve('/news/[slug]', { slug: post.slug })}>
+								<img
+									src={asset(post.image)}
+									alt=""
+									width="1920"
+									height="1080"
+									loading="lazy"
+								/>
+							</a>
 						</div>
-						<div class="blog-item-perex">
-							<p>{post.perex}</p>
+						<div class="blog-item-content">
+							<div class="blog-item-head">
+								<h2>
+									<a href={resolve('/news/[slug]', { slug: post.slug })}>{post.title}</a>
+								</h2>
+								<time class="blog-item-date" datetime="{post.date}">{post.date}</time>
+							</div>
+							<div class="blog-item-perex">
+								<p>{post.perex}</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</article>
-		{/each}
-	</div>
+				</article>
+			{/each}
+		</div>
+	</section>
 </main>
 
 <style>
-	.news-page {
-		max-width: 56rem;
-		margin: 0 auto;
-		padding: 5rem 1.5rem 4rem;
-	}
-
 	.news-title {
-		text-align: center;
-		font-size: 2rem;
-		margin-bottom: 2.5rem;
-		color: #212529;
+		margin-bottom: 0;
 	}
 
 	.blog-list {
 		display: flex;
 		flex-direction: column;
-		gap: 2.5rem;
+		gap: 1.5rem;
 	}
 
 	.blog-item {
-		background: #fff;
-		border-radius: 8px;
 		overflow: hidden;
-		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-		transition: box-shadow 0.2s;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
 	}
 
 	.blog-item:hover {
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		transform: translateY(-2px);
+		box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
 	}
 
 	.blog-item-wrapper {
@@ -90,7 +83,7 @@
 	.blog-item-media {
 		aspect-ratio: 16 / 10;
 		overflow: hidden;
-		background: #f1f3f5;
+		background: rgba(255, 255, 255, 0.35);
 	}
 
 	@media (min-width: 640px) {
@@ -114,6 +107,7 @@
 
 	.blog-item-content {
 		padding: 1.25rem 1.5rem;
+		text-align: left;
 	}
 
 	.blog-item-head {
@@ -124,6 +118,7 @@
 		font-size: 1.25rem;
 		margin: 0 0 0.35rem 0;
 		line-height: 1.3;
+		text-align: left;
 	}
 
 	.blog-item-head a {
@@ -146,6 +141,7 @@
 		font-size: 0.95rem;
 		line-height: 1.55;
 		color: #495057;
+		text-align: left;
 	}
 
 	.blog-item-perex p {

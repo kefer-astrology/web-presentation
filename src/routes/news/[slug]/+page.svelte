@@ -1,5 +1,6 @@
 <script>
-	import { base } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
+	import { t } from '$lib/translations';
 
 	let { data } = $props();
 	const post = $derived(data.post);
@@ -11,44 +12,45 @@
 </svelte:head>
 
 {#if !post}
-	<p>Článek nenalezen.</p>
+	<main class="page-shell">
+		<section class="section-panel glass-panel">
+			<p>{$t('all.newsNotFound')}</p>
+		</section>
+	</main>
 {:else}
-	<main class="post-page">
-		<header class="post-header">
-			<div class="post-header-content">
-				<h1>{post.title}</h1>
-				<time class="post-date" datetime={post.date}>{post.date}</time>
-			</div>
-			<div class="post-header-image">
-				<img src="{base}{post.image}" alt="" width="1920" height="1080" />
-			</div>
-		</header>
+	<main class="page-shell post-page">
+		<section class="section-panel glass-panel">
+			<header class="post-header">
+				<div class="post-header-content">
+					<h1 class="page-title">{post.title}</h1>
+					<div class="divider"></div>
+					<time class="post-date" datetime={post.date}>{post.date}</time>
+				</div>
+				<div class="post-header-image subsection-panel">
+					<img src={asset(post.image)} alt="" width="1920" height="1080" />
+				</div>
+			</header>
 
-		<div class="post-body">
-			{#if post.body}
-				{#each post.body.split(/\n\n+/) as paragraph}
-					{#if paragraph.trim()}
-						<p>{paragraph.trim()}</p>
-					{/if}
-				{/each}
-			{:else}
-				<p>{post.perex}</p>
-			{/if}
-		</div>
+			<div class="post-body">
+				{#if post.body}
+					{#each post.body.split(/\n\n+/) as paragraph}
+						{#if paragraph.trim()}
+							<p>{paragraph.trim()}</p>
+						{/if}
+					{/each}
+				{:else}
+					<p>{post.perex}</p>
+				{/if}
+			</div>
 
-		<p class="post-back">
-			<a href="{base}/news">← Zpět na Aktuality</a>
-		</p>
+			<p class="post-back">
+				<a href={resolve('/news')}>← {$t('all.newsBack')}</a>
+			</p>
+		</section>
 	</main>
 {/if}
 
 <style>
-	.post-page {
-		max-width: 56rem;
-		margin: 0 auto;
-		padding: 5rem 1.5rem 4rem;
-	}
-
 	.post-header {
 		margin-bottom: 2rem;
 	}
@@ -58,9 +60,7 @@
 	}
 
 	.post-header h1 {
-		font-size: 1.75rem;
-		margin: 0 0 0.5rem 0;
-		color: #212529;
+		margin: 0;
 	}
 
 	.post-date {
@@ -70,9 +70,8 @@
 	}
 
 	.post-header-image {
-		border-radius: 8px;
 		overflow: hidden;
-		background: #f1f3f5;
+		background: rgba(255, 255, 255, 0.35);
 	}
 
 	.post-header-image img {
@@ -85,6 +84,7 @@
 		font-size: 1rem;
 		line-height: 1.7;
 		color: #212529;
+		text-align: left;
 	}
 
 	.post-body p {
@@ -94,7 +94,7 @@
 	.post-back {
 		margin-top: 2.5rem;
 		padding-top: 1.5rem;
-		border-top: 1px solid #dee2e6;
+		border-top: 1px solid rgba(33, 37, 41, 0.12);
 	}
 
 	.post-back a {

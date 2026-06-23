@@ -1,5 +1,5 @@
 <script>
-  import { base } from '$app/paths';
+  import { asset, resolve } from '$app/paths';
   import { t, locales, locale, defaultLocale } from '$lib/translations';
 
   let aboutAppOpen = $state(false);
@@ -37,15 +37,7 @@
     langCloseId = setTimeout(() => { langOpen = false; langCloseId = null; }, HOVER_CLOSE_DELAY_MS);
   }
 
-  /** @param {Event} e */
-  function scrollIntoView(e) {
-    const href = /** @type {HTMLAnchorElement} */ (e.currentTarget)?.getAttribute('href');
-    if (!href || !href.startsWith('#')) return;
-    e.preventDefault();
-    mobileMenuOpen = false;
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
+
 
   function closeMobileMenu() {
     mobileMenuOpen = false;
@@ -63,6 +55,9 @@
 
   /** @param {string} lang */
   function toggleLanguage(lang) {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('locale', lang);
+    }
     locale.set(lang);
     locale.forceSet(lang);
     langOpen = false;
@@ -75,8 +70,8 @@
 </script>
 
 <nav class="navbar" id="mainNav">
-  <a class="logo" href="{base}/#start" aria-label="Kefer Astrology – domů">
-    <img src="{base}/Kefer_logo.webp" alt="Kefer Astrology" class="logo-img" width="180" height="56" />
+  <a class="logo" href={resolve('/#start')} aria-label="Kefer Astrology – domů">
+    <img src={asset('/Kefer_logo.webp')} alt="Kefer Astrology" class="logo-img" width="180" height="56" />
   </a>
 
   <button
@@ -100,17 +95,24 @@
         onmouseenter={enterAboutApp}
         onmouseleave={leaveAboutApp}
       >
-        <a class="nav-link" href="{base}/#supported-os" onclick={scrollIntoView}>
+        <a class="nav-link" href={resolve('/o-aplikaci')}>
           {$t('all.navAbout')}
         </a>
         {#if aboutAppOpen}
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{base}/#oss" onclick={scrollIntoView} role="menuitem">{$t('all.openSource')}</a></li>
-            <li><a href="{base}/#download" onclick={scrollIntoView} role="menuitem">{$t('all.download')}</a></li>
+            <li><a href={resolve('/o-aplikaci#supported-os')} role="menuitem">{$t('all.about4')}</a></li>
+            <li><a href={resolve('/o-aplikaci#about1')} role="menuitem">{$t('all.about1')}</a></li>
+            <li><a href={resolve('/o-aplikaci#about2')} role="menuitem">{$t('all.about2')}</a></li>
+            <li><a href={resolve('/o-aplikaci#about3')} role="menuitem">{$t('all.about3')}</a></li>
+            <li><a href={resolve('/o-aplikaci#function')} role="menuitem">{$t('all.functions')}</a></li>
+            <li><a href={resolve('/o-aplikaci#astrolab')} role="menuitem">{$t('all.astrolab')}</a></li>
+            <li><a href={resolve('/o-aplikaci#kefer')} role="menuitem">{$t('all.kefer')}</a></li>
+            <li><a href={resolve('/o-aplikaci#oss')} role="menuitem">{$t('all.openSource')}</a></li>
+            <li><a href={resolve('/o-aplikaci#download')} role="menuitem">{$t('all.download')}</a></li>
           </ul>
         {/if}
       </div>
-      <a class="nav-link" href="{base}/news">{$t('all.navBlog')}</a>
+      <a class="nav-link" href={resolve('/news')}>{$t('all.navBlog')}</a>
       <div
         class="nav-dropdown"
         role="group"
@@ -118,11 +120,12 @@
         onmouseenter={enterAboutUs}
         onmouseleave={leaveAboutUs}
       >
-        <a class="nav-link" href="{base}/o-nas">{$t('all.navAboutUs')}</a>
+        <a class="nav-link" href={resolve('/o-nas')}>{$t('all.navAboutUs')}</a>
         {#if aboutUsOpen}
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{base}/#donation" onclick={scrollIntoView} role="menuitem">{$t('all.donate')}</a></li>
-            <li><a href="{base}/#form" onclick={scrollIntoView} role="menuitem">{$t('all.contactUs')}</a></li>
+            <li><a href={resolve('/o-nas#vize')} role="menuitem">{$t('all.visionTitle')}</a></li>
+            <li><a href={resolve('/o-nas#donation')} role="menuitem">{$t('all.donate')}</a></li>
+            <li><a href={resolve('/o-nas#form')} role="menuitem">{$t('all.contactUs')}</a></li>
           </ul>
         {/if}
       </div>
@@ -142,7 +145,7 @@
         aria-expanded={langOpen}
         onclick={() => (langOpen = !langOpen)}
       >
-        <img src="{base}/{$locale ?? defaultLocale}.svg" alt="" width="20" height="20" />
+        <img src={asset(`/${$locale ?? defaultLocale}.svg`)} alt="" width="20" height="20" />
         <span>{$t(`lang.${$locale ?? defaultLocale}`)}</span>
       </button>
       {#if langOpen}
@@ -156,7 +159,7 @@
                 onclick={() => toggleLanguage(lang)}
                 onkeydown={(e) => handleKeyPress(e, lang)}
               >
-                <img src="{base}/{lang}.svg" alt="" width="20" height="20" />
+                <img src={asset(`/${lang}.svg`)} alt="" width="20" height="20" />
                 {$t(`lang.${lang}`)}
               </button>
             </li>
@@ -176,13 +179,19 @@
       onkeydown={handleMobileMenuKeydown}
     >
       <div class="mobile-menu-inner">
-        <a class="mobile-link" href="{base}/#about" onclick={scrollIntoView}>{$t('all.navAbout')}</a>
-        <a class="mobile-link" href="{base}/#oss" onclick={scrollIntoView}>{$t('all.openSource')}</a>
-        <a class="mobile-link" href="{base}/#download" onclick={scrollIntoView}>{$t('all.download')}</a>
-        <a class="mobile-link" href="{base}/news" onclick={closeMobileMenu}>{$t('all.navBlog')}</a>
-        <a class="mobile-link" href="{base}/o-nas" onclick={closeMobileMenu}>{$t('all.navAboutUs')}</a>
-        <a class="mobile-link" href="{base}/#donation" onclick={scrollIntoView}>{$t('all.donate')}</a>
-        <a class="mobile-link" href="{base}/#form" onclick={scrollIntoView}>{$t('all.contactUs')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci')} onclick={closeMobileMenu}>{$t('all.navAbout')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci#supported-os')} onclick={closeMobileMenu}>{$t('all.about4')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci#about1')} onclick={closeMobileMenu}>{$t('all.about1')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci#about2')} onclick={closeMobileMenu}>{$t('all.about2')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci#about3')} onclick={closeMobileMenu}>{$t('all.about3')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci#function')} onclick={closeMobileMenu}>{$t('all.functions')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci#oss')} onclick={closeMobileMenu}>{$t('all.openSource')}</a>
+        <a class="mobile-link" href={resolve('/o-aplikaci#download')} onclick={closeMobileMenu}>{$t('all.download')}</a>
+        <a class="mobile-link" href={resolve('/news')} onclick={closeMobileMenu}>{$t('all.navBlog')}</a>
+        <a class="mobile-link" href={resolve('/o-nas')} onclick={closeMobileMenu}>{$t('all.navAboutUs')}</a>
+        <a class="mobile-link" href={resolve('/o-nas#vize')} onclick={closeMobileMenu}>{$t('all.visionTitle')}</a>
+        <a class="mobile-link" href={resolve('/o-nas#donation')} onclick={closeMobileMenu}>{$t('all.donate')}</a>
+        <a class="mobile-link" href={resolve('/o-nas#form')} onclick={closeMobileMenu}>{$t('all.contactUs')}</a>
         <div class="mobile-lang">
           {#each $locales as lang}
             <button
@@ -190,7 +199,7 @@
               class="mobile-lang-btn"
               onclick={() => { toggleLanguage(lang); closeMobileMenu(); }}
             >
-              <img src="{base}/{lang}.svg" alt="" width="20" height="20" />
+              <img src={asset(`/${lang}.svg`)} alt="" width="20" height="20" />
               {$t(`lang.${lang}`)}
             </button>
           {/each}

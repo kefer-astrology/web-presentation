@@ -1,35 +1,37 @@
 {
-	"name": "kefer-presentation",
-	"author": {
-		"name": "Kube Kubow",
-		"url": "https://kubow.cz",
-		"email": "kube.kubow@gmail.com"
-	},
-	"license": "CC0-1.0",
-	"version": "0.0.1",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/kefer-astrology/keferastrology.com.git"
-	},
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
-	},
-	"devDependencies": {
-		"@neoconfetti/svelte": "^1.0.0",
-		"@sveltejs/adapter-static": "^3.0.8",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^4.0.4",
-		"svelte": "^5.53.0",
-		"svelte-check": "^4.0.0",
-		"sveltekit-i18n": "^2.4.2",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
-		"vite": "^5.4.21"
-	},
-	"type": "module",
-	"packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
+  "name": "kefer-presentation",
+  "author": {
+    "name": "Kube Kubow",
+    "url": "https://kubow.cz",
+    "email": "kube.kubow@gmail.com"
+  },
+  "license": "CC0-1.0",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kefer-astrology/keferastrology.com.git"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "translations:csv": "node scripts/translations-csv.mjs",
+    "translations:check": "node scripts/translations-csv.mjs --check"
+  },
+  "devDependencies": {
+    "@neoconfetti/svelte": "^2.2.2",
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.65.2",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "svelte": "^5.56.3",
+    "svelte-check": "^4.0.0",
+    "sveltekit-i18n": "^2.4.2",
+    "tslib": "^2.4.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.5"
+  },
+  "type": "module",
+  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }

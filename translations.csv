@@ -1,0 +1,93 @@
+file,namespace,key,cs,en
+all.json,all,about,O aplikaci,About App
+all.json,all,about1,Světlý a tmavý mód,Day / Night mode
+all.json,all,about1Text,"Upravuje zobrazení obrazovky pro lepší čitelnost a pohodlí očí. Jasný režim je ideální pro čtení za denního světla, zatímco tmavý režim snižuje oslnění a je šetrnější k očím při slabém osvětlení nebo v noci. 
+Uživatelé mohou přizpůsobit vzhled svého zařízení podle svých preferencí a prostředí.","Adjusts the screen display for better readability and eye comfort. Light mode is ideal for use in daylight, while dark mode reduces glare and is gentler on the eyes in low light or at night."
+all.json,all,about2,Databáze osobností,Personality database
+all.json,all,about2Text,"S více než 20 000 horoskopy českých a světových osobností máte okamžitý přístup k bohatému zdroji informací. KEFER obsahuje horoskopy významných osobností z politiky, umění, vědy a sportu, což umožňuje hlubší pochopení astrologie. Můžete ihned začít studovat horoskopy bez nutnosti dlouhého hledání.","With more than 20,000 horoscopes of Czech and international personalities, you have instant access to a rich source of information. KEFER includes charts of important figures from politics, art, science, and sport, making deeper study of astrology easier."
+all.json,all,about3,Štítky,Labels
+all.json,all,about3Text,"Vytváření vlastních štítků zlepšuje organizaci a práci s horoskopy. Můžete označit vlastní horoskopy, horoskopy významných osobností nebo událostí. Štítky umožňují použití více kategorií, vlastních barev, názvů a struktur.","Creating your own labels improves organisation and work with horoscopes. You can mark personal charts, famous personalities, or events, and use multiple categories, custom colours, names, and structures."
+all.json,all,about4,Podporované OS,Supported OS
+all.json,all,about4Text,"Windows, Mac, iOS, Android","Windows, Mac, iOS, Android"
+all.json,all,aboutAppMeta,Přehled funkcí a možností aplikace Kefer Astrology.,Overview of Kefer Astrology features and capabilities.
+all.json,all,aboutUsLead,"Jsme čtyři nadšenci, kteří se rozhodli, že společně vyvinou astrologický software s otevřeným kódem.",We are four enthusiasts who decided to build open-source astrology software together.
+all.json,all,aboutUsMeta,"Jsme tým nadšenců, kteří společně vyvíjejí astrologický software s otevřeným kódem.",We are a team of enthusiasts building open-source astrology software together.
+all.json,all,astrolab,Astroláb,Astrolabe
+all.json,all,astrolabText," umožňuje uživatelům nastavit a editovat místo, čas a časové pásmo pro každý horoskop.","Allows users to set and edit place, time, and time zone for each chart."
+all.json,all,contact,O nás,About Us
+all.json,all,contactDescription,Máte nápad k vylepšení KEFERa? Chcete s námi spolupracovat? Kontaktujte nás.,Have an idea to improve Kefer? Want to work with us? Contact us.
+all.json,all,contactText,nyní zde bude další hlavní sekce webu s textem,We are a small team building an open-source astrology application with long-term community collaboration in mind.
+all.json,all,contactUs,Kontakt,Contact
+all.json,all,cookieModalClose,Zavřít,Close
+all.json,all,cookieModalFormInfo,Data odeslaná prostřednictvím formuláře v sekci „Kontakt“ jsou předána přímo na naše e-mailové schránky.,Data submitted via the Contact us form are sent directly to our email inboxes.
+all.json,all,cookieModalNoCookies,Tato stránka nepoužívá žádné cookies.,This site does not use any cookies.
+all.json,all,cookieModalTitle,Cookies a soukromí,Cookies and privacy
+all.json,all,description," Zde bude úvodní banner. Viz úvodní
+obrazovka jako na luně. V pravé části
+pak bude text: 
+Profesionální
+astrologický
+software
+s otevřeným zdrojovým kódem
+(aktuálně ve vývoji)
+",Professional open-source astrology software currently in development.
+all.json,all,donate,Podpořte nás,Support Us
+all.json,all,donateText,"Vážíme si každé podpory, která nám pomáhá pokračovat ve vývoji a údržbě našeho programu. Můžete nás podpořit několika způsoby:
+
+Finanční příspěvek: Vaše dary nám umožní pokrýt náklady na vývoj a údržbu programu. Každý příspěvek, malý či velký, je pro nás nesmírně cenný.
+
+Nápady a zpětná vazba: Máte nápady na vylepšení nebo další vývoj? Rádi bychom slyšeli vaše návrhy a zpětnou vazbu. Kontaktujte nás a podělte se o své myšlenky.
+
+Přidejte se k našemu týmu: Jste grafik nebo programátor? Připojte se k našemu týmu a pomozte nám s vývojem programu. Společně můžeme dosáhnout skvělých věcí!","We value every form of support that helps us continue developing and maintaining the program. You can support us financially, share ideas and feedback, or join our team if you are a designer or developer."
+all.json,all,download,Stažení,Download
+all.json,all,downloadNow,Stahujte,Download
+all.json,all,downloadText,Program KEFER je aktuálně ve vývoji. Aktuální stav vývoje můžete sledovat v pravidelných aktualizacích nebo na našem facebookovém profilu.,KEFER is currently in development. You can follow the current progress through regular updates or on our Facebook profile.
+all.json,all,fCarousel1,"Nová nativita, horární a mundanní horoskop","New natal, horary, and mundane chart"
+all.json,all,fCarousel10,Solární a lunární revoluce ,Solar and lunar revolutions
+all.json,all,fCarousel11,Partnerské horoskopy,Relationship charts
+all.json,all,fCarousel12,Nastavení,Settings
+all.json,all,fCarousel2,Načíst vlastní horoskop a databáze osobností ,Load personal charts and the personality database
+all.json,all,fCarousel3,Uložit,Save
+all.json,all,fCarousel4,"Sdílet – tisk, PDF, PNG","Share — print, PDF, PNG"
+all.json,all,fCarousel5,Zobrazení horoskopu,Chart display
+all.json,all,fCarousel6,Aspektárium,Aspectarian
+all.json,all,fCarousel7,Informace o horoskopu,Chart information
+all.json,all,fCarousel8,"Tranzity, primární a sekundární direkce ","Transits, primary and secondary directions"
+all.json,all,fCarousel9,Dynamické tranzity ,Dynamic transits
+all.json,all,footerCookies,Cookies,Cookies
+all.json,all,footerCopyrightSuffix,Všechna práva vyhrazena,All rights reserved
+all.json,all,formEmail,E-mailová adresa,Email address
+all.json,all,formMessage,Zpráva,Message
+all.json,all,formName,Celé jméno,Full Name
+all.json,all,formPhone,Telefonní číslo,Phone number
+all.json,all,formSubmit,Odeslat,Send
+all.json,all,functions,Funkce Kefer,Kefer Features
+all.json,all,heroSubtitle,s otevřeným zdrojovým kódem,with open source code
+all.json,all,heroTitle,Profesionální astrologický software,Professional astrology software
+all.json,all,homeAboutUsTeaser,"Naše vize, možnosti podpory projektu a kontakt na nás.","Our vision, ways to support the project, and how to contact us."
+all.json,all,homeBlogTeaser,"Aktuality, novinky a články o vývoji projektu.","News, updates, and articles about the project's development."
+all.json,all,kefer,Jan Kefer,Jan Kefer
+all.json,all,keferText,"31. ledna 1906 – 3. prosince 1941 (místo přidat)
+byl významný český hermetik působící mezi dvěma světovými válkami. Byl předsedou společnosti Universalia, která sdružovala české hermetiky.
+Studoval na Arcibiskupském gymnáziu v Praze a později absolvoval Filozofickou fakultu Univerzity Karlovy. Byl knihovníkem v Národním muzeu v Praze a později také v knihovně Strahovského kláštera a ve Vatikánu. Ve své práci se věnoval astrologii, kabale, ceremoniální magii, alchymii a teurgii. Jako první přeložil do češtiny Bardo Thödol a knihy Eliphase Léviho.
+Za své projevy proti okupační moci na půdě Universalie byl v roce 1941 zatčen gestapem. Nabídku stát se Hitlerovým osobním astrologem odmítl a byl deportován do koncentračního tábora Flossenbürg, kde zemřel.
+S úctou k Janu Keferovi a se svolením jeho syna Reginalda jsme software nazvali KEFER.
+","Jan Kefer (31 January 1906 – 3 December 1941) was a prominent Czech hermeticist active between the two world wars. He chaired the Universalia society, which brought together Czech hermeticists. With respect for Jan Kefer and with the permission of his son Reginald, we named the software KEFER."
+all.json,all,navAbout,O Aplikaci,About App
+all.json,all,navAboutUs,O nás,About Us
+all.json,all,navBlog,Blog,Blog
+all.json,all,newsBack,Zpět na Aktuality,Back to News
+all.json,all,newsMetaDescription,Aktuality a novinky z blogu Kefer Astrology.,News and updates from the Kefer Astrology blog.
+all.json,all,newsNotFound,Článek nenalezen.,Article not found.
+all.json,all,newsTitle,Aktuality,News
+all.json,all,openSource,Otevřený zdrojový kód,Open Source
+all.json,all,openSourceText,"Zvolili jsme cestu otevřeného softwaru, protože věříme, že umožňuje široké komunitě vývojářů a astrologů přispívat k vývoji KEFERa svými nápady a vylepšeními. Jsme transparentní a uživatelé mohou vidět, jak software funguje, a mohou se ujistit, že neobsahuje žádné skryté škodlivé kódy.
+Celý zdrojový kód je otevřeně sdílen na platformě {github}. Pokoušíme se ho co nejlépe dokumentovat, aby bylo co nejjednodušší měnit jednotlivé komponenty. <br /> Pro vlastní vývoj jsme vybrali programovací jazyk {rust} (konkrétně podnož {tauri}), který umožňuje spřažení s mocnými knihovnami programovacího jazyku {python} a na druhé straně využít přesné polohování jednotlivých komponent pomocí Javascriptu (v našem případě se jedná o programovací jazyk {sveltekit}).
+KEFER je bez reklam a ke stažení zdarma.
+","We chose the open-source path because we believe it allows a broad community of developers and astrologers to help shape KEFER with their ideas and improvements. The entire source code is openly shared on {github}, and we are working to document it clearly so individual components can be modified more easily.<br /> For development, we use {rust} (specifically {tauri}), which can integrate with powerful {python} libraries while also enabling precise interface work in {sveltekit}."
+all.json,all,visionText,"Software Kefer vyvíjíme v několika jazykových verzích s cílem vytvořit moderní aplikaci s intuitivním uživatelským rozhraním. Současné funkce jsou jen začátkem – postupně budeme přidávat nové a vylepšovat stávající. Díky otevřenému kódu může komunita uživatelů a vývojářů aktivně přispívat, sdílet své zkušenosti a znalosti, a tím podporovat další vývoj Kefera.","We are developing Kefer in several language versions with the goal of creating a modern application with an intuitive user interface. The current features are only the beginning — we will gradually add new ones and improve the existing ones. Thanks to the open-source code, both users and developers can actively contribute and support the further development of Kefer."
+all.json,all,visionTitle,Naše vize,Our Vision
+all.json,all,welcome,Kefer Astrology,Kefer Astrology
+news.json,news,1body,............,............
+news.json,news,1head,Spuštění webových stránek,Spuštění webových stránek
+news.json,news,heading,Novinky,News

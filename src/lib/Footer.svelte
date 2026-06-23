@@ -11,6 +11,7 @@
     }
   });
 
+  /** @param {MouseEvent} e */
   function openCookieModal(e) {
     e?.preventDefault();
     cookieModalOpen = true;
